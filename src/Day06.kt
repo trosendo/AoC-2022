@@ -1,15 +1,26 @@
 fun main() {
 
 
+    fun getFirstLastNCharsNotRepeated(
+        list: List<Char>,
+        lastNChars: Int,
+        indexFound: Int,
+        char: Char,
+        index: Int
+    ): Pair<List<Char>, Int> {
+        val startIndex = maxOf(list.size - lastNChars, 0)
+        return if (list.subList(startIndex, list.size)
+                .distinct().size == lastNChars
+        ) list to indexFound else list + char to index
+    }
+
     fun part1(input: String) : Int = input.foldIndexed(emptyList<Char>() to 0) { index, (list, indexFound), char ->
-        val startIndex = maxOf(list.size - 4, 0)
-        if(list.subList(startIndex, list.size).distinct().size == 4) list to indexFound else list + char to index
+        getFirstLastNCharsNotRepeated(list, 4, indexFound, char, index)
     }.second + 1
 
 
     fun part2(input: String) : Int = input.foldIndexed(emptyList<Char>() to 0) { index, (list, indexFound), char ->
-        val startIndex = maxOf(list.size - 14, 0)
-        if(list.subList(startIndex, list.size).distinct().size == 14) list to indexFound else list + char to index
+        getFirstLastNCharsNotRepeated(list, 14, indexFound, char, index)
     }.second + 1
 
 
