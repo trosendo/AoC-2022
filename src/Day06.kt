@@ -1,28 +1,22 @@
 fun main() {
 
+    fun findIndexOfFirstNonRepeatingNChars(input: String, lastNChars: Int) =
+        input.foldIndexed(emptyList<Char>() to 0) { index, (list, indexFound), char ->
+            if (list.distinct().size == lastNChars)
+                list to indexFound
+            else (list + char).takeLast(lastNChars) to index
+        }.second + 1
 
-    fun getFirstLastNCharsNotRepeated(
-        list: List<Char>,
-        lastNChars: Int,
-        indexFound: Int,
-        char: Char,
-        index: Int
-    ): Pair<List<Char>, Int> {
-        val startIndex = maxOf(list.size - lastNChars, 0)
-        return if (list.subList(startIndex, list.size)
-                .distinct().size == lastNChars
-        ) list to indexFound else list + char to index
+    fun part1(input: String) : Int {
+        val lastNChars = 4
+        return findIndexOfFirstNonRepeatingNChars(input, lastNChars)
     }
 
-    fun part1(input: String) : Int = input.foldIndexed(emptyList<Char>() to 0) { index, (list, indexFound), char ->
-        getFirstLastNCharsNotRepeated(list, 4, indexFound, char, index)
-    }.second + 1
 
-
-    fun part2(input: String) : Int = input.foldIndexed(emptyList<Char>() to 0) { index, (list, indexFound), char ->
-        getFirstLastNCharsNotRepeated(list, 14, indexFound, char, index)
-    }.second + 1
-
+    fun part2(input: String) : Int {
+        val lastNChars = 14
+        return findIndexOfFirstNonRepeatingNChars(input, lastNChars)
+    }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInputAsText("Day06_test")
