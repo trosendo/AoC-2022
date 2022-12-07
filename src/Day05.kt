@@ -1,5 +1,3 @@
-@file:JvmName("Day04Kt")
-
 fun main() {
     fun <E> List<List<E>>.transpose(): List<List<E?>> {
         val columnIndices = 0 until this.maxOf { it.size } // 0 a 9
